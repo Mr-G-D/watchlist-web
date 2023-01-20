@@ -11,9 +11,9 @@ const Sidebar = () => {
       <div className="mt-10">
         <h2 className="font-bold mb-5">Genres</h2>
         <div
-          className="mt-8 overflow-auto"
+          className="mt-4 overflow-auto"
           style={{
-            maxHeight: "45rem",
+            maxHeight: "44rem",
           }}
         >
           <p className="font-medium text-lg">Test</p>
