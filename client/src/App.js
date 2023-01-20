@@ -1,12 +1,10 @@
 import "./App.css";
+import Home from "./pages/Home.jsx";
 
 function App() {
   return (
     <div className="App ">
-      <header className="App-header">
-        Watchlist
-        <section></section>
-      </header>
+      <Home />
     </div>
   );
 }
