@@ -1,4 +1,5 @@
 import React from "react";
+import { Filter } from "../components/Filter";
 import Main from "../components/Main";
 import Sidebar from "../components/Sidebar";
 
@@ -15,7 +16,8 @@ const Home = () => {
         <Sidebar />
       </div>
       <div className="basis-4/5 w-[80%]">
-        <Main />
+        {/* <Main /> */}
+        <Filter />
       </div>
     </div>
   );
