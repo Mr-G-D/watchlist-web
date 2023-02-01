@@ -1,4 +1,4 @@
-import { Col, Input, Row } from "antd";
+import { Input } from "antd";
 import React from "react";
 import Poster from "./Poster";
 
