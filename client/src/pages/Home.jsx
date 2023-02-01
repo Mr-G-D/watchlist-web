@@ -14,7 +14,7 @@ const Home = () => {
       >
         <Sidebar />
       </div>
-      <div className="basis-4/5">
+      <div className="basis-4/5 w-[80%]">
         <Main />
       </div>
     </div>

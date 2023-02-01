@@ -1,12 +1,13 @@
 import React from "react";
 import { Input } from "antd";
+import Categories from "./Categories";
 
 const { Search } = Input;
 
 const Main = () => {
   return (
-    <div className="m-8 font-sans">
-      <div className="flex flex-row justify-between align-middle">
+    <div className="font-sans">
+      <div className="m-8 flex flex-row justify-between align-middle">
         <Search
           placeholder="Search"
           // onSearch={onSearch}
@@ -21,6 +22,10 @@ const Main = () => {
             alt="logo"
           />
         </div>
+      </div>
+      <div>
+        <Categories id={1} />
+        <Categories id={2} />
       </div>
     </div>
   );

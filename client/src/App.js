@@ -3,7 +3,7 @@ import Home from "./pages/Home.jsx";
 
 function App() {
   return (
-    <div className="App h-full">
+    <div className="App h-full w-screen">
       <Home />
     </div>
   );

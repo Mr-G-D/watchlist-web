@@ -8,7 +8,7 @@ const Sidebar = () => {
           <span className="font-semibold">The</span>Watchlist
         </h1>
       </div>
-      <div className="mt-10">
+      <div className="mt-12">
         <h2 className="font-bold mb-5">Genres</h2>
         <div
           className="mt-4 overflow-auto"
