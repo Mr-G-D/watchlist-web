@@ -1,6 +1,6 @@
 import React from "react";
 
-const Sidebar = () => {
+const Sidebar = ({ genre }) => {
   return (
     <div className="my-6 mx-8 font-sans">
       <div className="">
@@ -16,50 +16,11 @@ const Sidebar = () => {
             maxHeight: "44rem",
           }}
         >
-          <p className="font-medium text-lg">Test</p>
-          <p className="font-medium text-lg">Test</p>
-          <p className="font-medium text-lg">Test</p>
-          <p className="font-medium text-lg">Test</p>
-          <p className="font-medium text-lg">Test</p>
-          <p className="font-medium text-lg">Test</p>
-          <p className="font-medium text-lg">Test</p>
-          <p className="font-medium text-lg">Test</p>
-          <p className="font-medium text-lg">Test</p>
-          <p className="font-medium text-lg">Test</p>
-          <p className="font-medium text-lg">Test</p>
-          <p className="font-medium text-lg">Test</p>
-          <p className="font-medium text-lg">Test</p>
-          <p className="font-medium text-lg">Test</p>
-          <p className="font-medium text-lg">Test</p>
-          <p className="font-medium text-lg">Test</p>
-          <p className="font-medium text-lg">Test</p>
-          <p className="font-medium text-lg">Test</p>
-          <p className="font-medium text-lg">Test</p>
-          <p className="font-medium text-lg">Test</p>
-          <p className="font-medium text-lg">Test</p>
-          <p className="font-medium text-lg">Test</p>
-          <p className="font-medium text-lg">Test</p>
-          <p className="font-medium text-lg">Test</p>
-          <p className="font-medium text-lg">Test</p>
-          <p className="font-medium text-lg">Test</p>
-          <p className="font-medium text-lg">Test</p>
-          <p className="font-medium text-lg">Test</p>
-          <p className="font-medium text-lg">Test</p>
-          <p className="font-medium text-lg">Test</p>
-          <p className="font-medium text-lg">Test</p>
-          <p className="font-medium text-lg">Test</p>
-          <p className="font-medium text-lg">Test</p>
-          <p className="font-medium text-lg">Test</p>
-          <p className="font-medium text-lg">Test</p>
-          <p className="font-medium text-lg">Test</p>
-          <p className="font-medium text-lg">Test</p>
-          <p className="font-medium text-lg">Test</p>
-          <p className="font-medium text-lg">Test</p>
-          <p className="font-medium text-lg">Test</p>
-          <p className="font-medium text-lg">Test</p>
-          <p className="font-medium text-lg">Test</p>
-          <p className="font-medium text-lg">Test</p>
-          <p className="font-medium text-lg">Test</p>
+          {genre?.map((ele) => (
+            <p key={ele.id} className="font-medium text-lg">
+              {ele.name}
+            </p>
+          ))}
         </div>
       </div>
     </div>

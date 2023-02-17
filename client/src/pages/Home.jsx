@@ -1,9 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Filter } from "../components/Filter";
 import Main from "../components/Main";
 import Sidebar from "../components/Sidebar";
+import { fetchGenres } from "../main/api";
 
 const Home = () => {
+  const [filter, setFilter] = useState(false);
+  const [genre, setGenre] = useState([]);
+
+  useEffect(() => {
+    const fetch = async () => {
+      const res = await fetchGenres();
+      if (res.status === 200) {
+        setGenre(res.data.genres);
+      } else {
+        console.log("No Data");
+      }
+    };
+    fetch();
+  }, []);
+
   return (
     <div className="flex flex-row h-full">
       <div
@@ -13,11 +29,14 @@ const Home = () => {
           borderRightWidth: "2px",
         }}
       >
-        <Sidebar />
+        <Sidebar genre={genre} />
       </div>
       <div className="basis-4/5 w-[80%]">
-        {/* <Main /> */}
-        <Filter />
+        {filter ? (
+          <Filter setFilter={setFilter} />
+        ) : (
+          <Main setFilter={setFilter} />
+        )}
       </div>
     </div>
   );
