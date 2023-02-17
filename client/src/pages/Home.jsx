@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Filter } from "../components/Filter";
 import Main from "../components/Main";
 import Sidebar from "../components/Sidebar";
-import { fetchGenres } from "../main/api";
+import { fetchData } from "../main/api";
 
 const Home = () => {
   const [filter, setFilter] = useState(false);
@@ -10,7 +10,7 @@ const Home = () => {
 
   useEffect(() => {
     const fetch = async () => {
-      const res = await fetchGenres();
+      const res = await fetchData("genre/movie/list");
       if (res.status === 200) {
         setGenre(res.data.genres);
       } else {

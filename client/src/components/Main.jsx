@@ -2,13 +2,11 @@ import { Button } from "antd";
 import React from "react";
 import Categories from "./Categories";
 import { SearchOutlined } from "@ant-design/icons";
-import { fetchGenres } from "../main/api";
 
 const Main = ({ setFilter }) => {
-  fetchGenres();
   return (
-    <div className="font-sans">
-      <div className="m-8 flex flex-row justify-between align-middle">
+    <div className="font-sans overflow-scroll h-screen">
+      <div className="mx-8 my-2 flex flex-row justify-between align-middle items-center">
         <Button
           onClick={() => setFilter(true)}
           type="primary"
@@ -27,8 +25,9 @@ const Main = ({ setFilter }) => {
         </div>
       </div>
       <div>
-        <Categories id={1} />
-        <Categories id={2} />
+        <Categories name="Now Playing" url="/movie/now_playing" id={1} />
+        <Categories name="Popular" id={2} url="/movie/popular" />
+        <Categories name="Top Rated" id={3} url="/movie/top_rated" />
       </div>
     </div>
   );
