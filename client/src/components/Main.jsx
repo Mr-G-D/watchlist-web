@@ -3,7 +3,7 @@ import React from "react";
 import Categories from "./Categories";
 import { SearchOutlined } from "@ant-design/icons";
 
-const Main = ({ setFilter }) => {
+const Main = ({ setFilter, handleData }) => {
   return (
     <div className="font-sans overflow-scroll h-screen">
       <div className="mx-8 my-2 flex flex-row justify-between align-middle items-center">
@@ -25,9 +25,27 @@ const Main = ({ setFilter }) => {
         </div>
       </div>
       <div>
-        <Categories name="Now Playing" url="/movie/now_playing" id={1} />
-        <Categories name="Popular" id={2} url="/movie/popular" />
-        <Categories name="Top Rated" id={3} url="/movie/top_rated" />
+        <Categories
+          handleData={handleData}
+          setFilter={setFilter}
+          name="Now Playing"
+          url="/movie/now_playing"
+          id={1}
+        />
+        <Categories
+          handleData={handleData}
+          setFilter={setFilter}
+          name="Popular"
+          url="/movie/popular"
+          id={2}
+        />
+        <Categories
+          handleData={handleData}
+          setFilter={setFilter}
+          name="Top Rated"
+          url="/movie/top_rated"
+          id={3}
+        />
       </div>
     </div>
   );

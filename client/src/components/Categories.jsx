@@ -3,7 +3,7 @@ import Poster from "./Poster";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import { fetchData } from "../main/api";
 
-const Categories = (props) => {
+const Categories = (props, { handleData }) => {
   const [movie, setMovie] = useState([]);
 
   const slideLeft = (id) => {
@@ -37,7 +37,14 @@ const Categories = (props) => {
 
   return (
     <section className="">
-      <h2 className="mx-8 mt-2 mb-0 font-bold">{props.name}</h2>
+      <h2
+        onClick={() => {
+          props.handleData(props.url);
+        }}
+        className="mx-8 mt-2 mb-0 font-bold cursor-pointer hover:text-blue-900 block"
+      >
+        {props.name}
+      </h2>
       <div className="ml-3 relative flex items-center">
         <MdChevronLeft
           onClick={() => slideLeft(props.id)}
@@ -51,7 +58,7 @@ const Categories = (props) => {
           className="w-full h-full overflow-x-scroll scroll whitespace-nowrap scroll-smooth"
         >
           {movie?.map((ele) => (
-            <Poster data={ele} />
+            <Poster key={ele.id} data={ele} />
           ))}
         </div>
         <MdChevronRight

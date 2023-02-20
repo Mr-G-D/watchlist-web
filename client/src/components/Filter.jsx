@@ -1,14 +1,28 @@
 import { Input } from "antd";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { TfiClose } from "react-icons/tfi";
+import { fetchData } from "../main/api";
 import Poster from "./Poster";
 
-export const Filter = ({ setFilter }) => {
-  console.log(process.env.REACT_APP_API_KEY);
+export const Filter = ({ setFilter, data }) => {
+  const [movieData, setMovieData] = useState([]);
   const { Search } = Input;
+
+  useEffect(() => {
+    const fetch = async () => {
+      const res = await fetchData(data);
+      if (res.status === 200) {
+        setMovieData(res.data.results);
+      } else {
+        console.log("No Data");
+      }
+    };
+    fetch();
+  }, [data]);
+
   return (
     <div className="font-sans">
-      <div className="m-8 flex flex-row justify-between align-middle">
+      <div className="mx-8 my-2 flex flex-row justify-between align-middle">
         <div className="flex w-[80%] items-center">
           <Search
             placeholder="Search"
@@ -42,42 +56,11 @@ export const Filter = ({ setFilter }) => {
             maxHeight: "86vh",
           }}
         >
-          <div>
-            <Poster />
-          </div>
-          <div>
-            <Poster />
-          </div>
-          <div>
-            <Poster />
-          </div>
-          <div>
-            <Poster />
-          </div>
-          <div>
-            <Poster />
-          </div>
-          <div>
-            <Poster />
-          </div>
-          <div>
-            <Poster />
-          </div>
-          <div>
-            <Poster />
-          </div>
-          <div>
-            <Poster />
-          </div>
-          <div>
-            <Poster />
-          </div>
-          <div>
-            <Poster />
-          </div>
-          <div>
-            <Poster />
-          </div>
+          {movieData?.map((ele) => (
+            <div>
+              <Poster key={ele.id} data={ele} />
+            </div>
+          ))}
         </div>
       </div>
     </div>

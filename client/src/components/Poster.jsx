@@ -40,7 +40,12 @@ const Poster = ({ data }) => {
           />
         }
       >
-        <Meta title={data.title} description={formatDate(data.release_date)} />
+        <Meta
+          title={data.title ? data.title : data.name}
+          description={formatDate(
+            data.release_date ? data.release_date : data.first_air_date,
+          )}
+        />
       </Card>
     </div>
   );

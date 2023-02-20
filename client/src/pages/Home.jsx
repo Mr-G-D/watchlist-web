@@ -5,8 +5,14 @@ import Sidebar from "../components/Sidebar";
 import { fetchData } from "../main/api";
 
 const Home = () => {
+  const [url, setUrl] = useState("/trending/all/day");
   const [filter, setFilter] = useState(false);
   const [genre, setGenre] = useState([]);
+
+  const handleData = (movieUrl) => {
+    setUrl(movieUrl);
+    setFilter(true);
+  };
 
   useEffect(() => {
     const fetch = async () => {
@@ -33,9 +39,9 @@ const Home = () => {
       </div>
       <div className="basis-4/5 w-[80%]">
         {filter ? (
-          <Filter setFilter={setFilter} />
+          <Filter setFilter={setFilter} data={url} />
         ) : (
-          <Main setFilter={setFilter} />
+          <Main setFilter={setFilter} handleData={handleData} />
         )}
       </div>
     </div>
