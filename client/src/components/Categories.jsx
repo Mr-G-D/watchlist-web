@@ -22,7 +22,7 @@ const Categories = (props) => {
       if (res.status === 200) {
         let temp = res.data.results;
         if (temp.length > 10) {
-          temp = temp.slice(0, 10);
+          temp = temp?.slice(0, 10);
           setMovie(temp.reverse());
         } else {
           temp.reverse();
@@ -71,7 +71,7 @@ const Categories = (props) => {
           className="w-full h-full overflow-x-scroll scroll whitespace-nowrap scroll-smooth"
         >
           {movie?.map((ele) => (
-            <Poster key={ele.id} data={ele} />
+            <Poster key={ele.id} data={ele} type={props.type} />
           ))}
         </div>
         <MdChevronRight

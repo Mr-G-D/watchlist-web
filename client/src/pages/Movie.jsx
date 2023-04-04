@@ -1,16 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import Categories from "../components/Categories";
 import { AiOutlineStar } from "react-icons/ai";
 import { TfiClose } from "react-icons/tfi";
 import Comments from "../components/Comments";
 import Providers from "../components/Providers";
+import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { fetchData } from "../main/api";
 
 const Movie = () => {
+  const { id } = useParams();
+
+  const [movie, setMovie] = useState({});
+
+  useEffect(() => {
+    const fetchMovie = async () => {
+      const res = await fetchData(`/movie/${id}`);
+      if (res.status === 200) {
+        setMovie(res.data);
+      } else {
+        console.log("Error");
+      }
+    };
+    fetchMovie();
+  });
   return (
     <section>
       <div
         style={{
-          backgroundImage: `url("https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces/wxgD3fB5lQ2sGJLog0rvXW049Pf.jpg")`,
+          backgroundImage: `url("https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces${movie.backdrop_path}")`,
           height: "50vh",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
@@ -35,7 +53,7 @@ const Movie = () => {
               <div className="w-60 p-5">
                 <img
                   className="w-full"
-                  src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2/2YMnBRh8F6fDGCCEIPk9Hb0cEyB.jpg"
+                  src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2${movie.poster_path}`}
                   alt="poster"
                 />
               </div>
@@ -51,7 +69,7 @@ const Movie = () => {
                     fontSize: "2.2rem",
                   }}
                 >
-                  Title
+                  {movie.title}
                 </h2>
                 <div className="flex">
                   <span className="pl-0 relative top-0 left-0">04/01/2022</span>
@@ -66,7 +84,7 @@ const Movie = () => {
                     opacity: 0.7,
                   }}
                 >
-                  lorem
+                  {movie.tagline}
                 </h3>
                 <h3
                   className="mt-3 w-full"
@@ -91,10 +109,7 @@ const Movie = () => {
                       boxSizing: "border-box",
                     }}
                   >
-                    On New Year's Eve 1999, three friends, who are attempting to
-                    break into the music scene through pirate radio, drive
-                    through London in a desperate search for tickets for the
-                    best millennium party ever.
+                    {movie.overview}
                   </p>
                 </div>
                 <div
@@ -147,10 +162,14 @@ const Movie = () => {
             </div>
 
             <div className="m-10">
-              <AiOutlineStar className="cursor-pointer" size={25} />
+              <AiOutlineStar className="cursor-pointer" size={15} />
             </div>
             <div className="m-10 ">
-              <TfiClose className="cursor-pointer" size={25} />
+              <TfiClose
+                className="cursor-pointer"
+                size={15}
+                onClick={() => (window.location.href = "/")}
+              />
             </div>
           </div>
         </div>
@@ -159,17 +178,14 @@ const Movie = () => {
       <div className="">
         <div className="flex">
           <div className="w-3/4">
-            <Categories name="Cast" url={`/movie/${238}/credits`} type={2} />
+            <Categories name="Cast" url={`/movie/${id}/credits`} type={2} />
           </div>
           <div className="w-1/4">
-            <Providers id={238} />
+            <Providers id={id} />
           </div>
         </div>
-        <div
-          className="
-        "
-        >
-          <Comments id={238} />
+        <div className="">
+          <Comments id={id} />
         </div>
       </div>
     </section>

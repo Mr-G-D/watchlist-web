@@ -58,7 +58,7 @@ export const Filter = ({ setFilter, data }) => {
         >
           {movieData?.map((ele) => (
             <div>
-              <Poster key={ele.id} data={ele} />
+              <Poster key={ele.id} data={ele} type={1} />
             </div>
           ))}
         </div>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { fetchData } from "../main/api";
 
 const Comments = ({ id }) => {
-  const [reviews, setReviews] = useState();
+  const [reviews, setReviews] = useState([]);
   useEffect(() => {
     const fetchReviews = async () => {
       const res = await fetchData(`movie/${id}/reviews`);
@@ -15,7 +15,7 @@ const Comments = ({ id }) => {
     fetchReviews();
   }, [id]);
 
-  return (
+  return reviews.length !== 0 ? (
     <section className="relative flex flex-col items-start justify-center antialiased bg-white font-sans overflow-scroll">
       <h2 className="mx-8 mt-5 mb-0 font-bold cursor-pointer hover:text-blue-900 inline">
         Reviews
@@ -45,6 +45,8 @@ const Comments = ({ id }) => {
         </div>
       ))}
     </section>
+  ) : (
+    ""
   );
 };
 

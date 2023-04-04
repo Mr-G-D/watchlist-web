@@ -3,7 +3,7 @@ import React from "react";
 
 const { Meta } = Card;
 
-const Poster = ({ data }) => {
+const Poster = ({ data, type }) => {
   function formatDate(date) {
     var monthNames = [
       "Jan",
@@ -21,16 +21,21 @@ const Poster = ({ data }) => {
     ];
 
     return (
-      date.slice(0, 4) +
+      date?.slice(0, 4) +
       " " +
-      monthNames[parseInt(date.slice(5, 7)) - 1] +
+      monthNames[parseInt(date?.slice(5, 7)) - 1] +
       " " +
-      date.slice(8, 10)
+      date?.slice(8, 10)
     );
   }
   return (
     <div className="w-[180px] inline-block my-5 mx-5">
       <Card
+        onClick={() => {
+          if (type === 1) {
+            window.location.href = `/movie/${data.id}`;
+          }
+        }}
         className=""
         hoverable
         cover={
