@@ -2,6 +2,7 @@ import React from "react";
 import Categories from "../components/Categories";
 import { AiOutlineStar } from "react-icons/ai";
 import { TfiClose } from "react-icons/tfi";
+import Comments from "../components/Comments";
 
 const Movie = () => {
   return (
@@ -154,11 +155,19 @@ const Movie = () => {
         </div>
       </div>
 
-      <div className="flex">
-        <div className="flex-initial w-3/5">
-          <Categories name="Cast" url={`/movie/${238}/credits`} type={2} />
+      <div className="">
+        <div className="flex">
+          <div className="w-3/4">
+            <Categories name="Cast" url={`/movie/${238}/credits`} type={2} />
+          </div>
+          <div className="w-1/4">Providers</div>
         </div>
-        <div className="w-2/5">Hello</div>
+        <div
+          className="
+        "
+        >
+          <Comments id={238} />
+        </div>
       </div>
     </section>
   );

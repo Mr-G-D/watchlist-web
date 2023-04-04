@@ -49,7 +49,7 @@ const Categories = (props) => {
   }, [props.url, props.type]);
 
   return (
-    <section className="mt-5">
+    <section className="mt-5 font-sans">
       <h2
         onClick={() => {
           props.handleData(props.url);
