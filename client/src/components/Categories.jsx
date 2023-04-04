@@ -3,7 +3,7 @@ import Poster from "./Poster";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import { fetchData } from "../main/api";
 
-const Categories = (props, { handleData }) => {
+const Categories = (props) => {
   const [movie, setMovie] = useState([]);
 
   const slideLeft = (id) => {
@@ -17,7 +17,7 @@ const Categories = (props, { handleData }) => {
   };
 
   useEffect(() => {
-    const fetch = async () => {
+    const fetchMovies = async () => {
       const res = await fetchData(props.url);
       if (res.status === 200) {
         let temp = res.data.results;
@@ -32,16 +32,29 @@ const Categories = (props, { handleData }) => {
         console.log("No Data");
       }
     };
-    fetch();
-  }, [props.url]);
+    const fetchCast = async () => {
+      const res = await fetchData(props.url);
+      if (res.status === 200) {
+        const data = res.data.cast;
+        setMovie(data);
+      } else {
+        console.log("No Data");
+      }
+    };
+    if (props.type === 1) {
+      fetchMovies();
+    } else if (props.type === 2) {
+      fetchCast();
+    }
+  }, [props.url, props.type]);
 
   return (
-    <section className="">
+    <section className="mt-5">
       <h2
         onClick={() => {
           props.handleData(props.url);
         }}
-        className="mx-8 mt-2 mb-0 font-bold cursor-pointer hover:text-blue-900 block"
+        className="mx-8 mt-5 mb-0 font-bold cursor-pointer hover:text-blue-900 inline"
       >
         {props.name}
       </h2>

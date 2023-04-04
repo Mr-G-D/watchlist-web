@@ -154,8 +154,11 @@ const Movie = () => {
         </div>
       </div>
 
-      <div>
-        <Categories />
+      <div className="flex">
+        <div className="flex-initial w-3/5">
+          <Categories name="Cast" url={`/movie/${238}/credits`} type={2} />
+        </div>
+        <div className="w-2/5">Hello</div>
       </div>
     </section>
   );

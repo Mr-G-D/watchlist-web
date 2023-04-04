@@ -35,16 +35,28 @@ const Poster = ({ data }) => {
         hoverable
         cover={
           <img
+            height="270"
+            width="50"
             alt="example"
-            src={`https://www.themoviedb.org/t/p/w220_and_h330_face/${data.poster_path}`}
+            src={
+              data.poster_path
+                ? `https://www.themoviedb.org/t/p/w220_and_h330_face/${data.poster_path}`
+                : data.profile_path
+                ? `https://www.themoviedb.org/t/p/w220_and_h330_face/${data.profile_path}`
+                : `https://i.pravatar.cc/300?u=${data.name}`
+            }
           />
         }
       >
         <Meta
           title={data.title ? data.title : data.name}
-          description={formatDate(
-            data.release_date ? data.release_date : data.first_air_date,
-          )}
+          description={
+            data.character
+              ? data.character
+              : formatDate(
+                  data.release_date ? data.release_date : data.first_air_date,
+                )
+          }
         />
       </Card>
     </div>

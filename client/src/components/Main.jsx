@@ -27,24 +27,24 @@ const Main = ({ setFilter, handleData }) => {
       <div>
         <Categories
           handleData={handleData}
-          setFilter={setFilter}
           name="Now Playing"
           url="/movie/now_playing"
           id={1}
+          type={1}
         />
         <Categories
           handleData={handleData}
-          setFilter={setFilter}
           name="Popular"
           url="/movie/popular"
           id={2}
+          type={1}
         />
         <Categories
           handleData={handleData}
-          setFilter={setFilter}
           name="Top Rated"
           url="/movie/top_rated"
           id={3}
+          type={1}
         />
       </div>
     </div>
