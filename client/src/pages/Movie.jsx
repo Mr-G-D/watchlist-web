@@ -18,12 +18,13 @@ const Movie = () => {
       const res = await fetchData(`/movie/${id}`);
       if (res.status === 200) {
         setMovie(res.data);
+        console.log(res.data);
       } else {
         console.log("Error");
       }
     };
     fetchMovie();
-  });
+  }, [id]);
   return (
     <section>
       <div
@@ -64,7 +65,7 @@ const Movie = () => {
                 }}
               >
                 <h2
-                  className="w-full m-0 p-0"
+                  className="w-full m-0 p-0 font-sans"
                   style={{
                     fontSize: "2.2rem",
                   }}
@@ -72,8 +73,16 @@ const Movie = () => {
                   {movie.title}
                 </h2>
                 <div className="flex">
-                  <span className="pl-0 relative top-0 left-0">04/01/2022</span>
-                  <span className="pl-5 relative top-0 left-0">Comedy</span>
+                  <span className="pl-0 relative top-0 left-0 font-sans">
+                    {movie.release_date}
+                  </span>
+                  <span className="pl-5 relative top-0 left-0 font-sans font-medium">
+                    {movie.genres?.map(
+                      (ele, index) =>
+                        ele.name +
+                        (index === movie.genres.length - 1 ? "" : ", "),
+                    )}
+                  </span>
                 </div>
                 <h3
                   className="mb-0"
@@ -87,7 +96,7 @@ const Movie = () => {
                   {movie.tagline}
                 </h3>
                 <h3
-                  className="mt-3 w-full"
+                  className="mt-3 w-full font-sans"
                   style={{
                     fontWeight: "600",
                     fontSize: "1.3em",
@@ -103,7 +112,7 @@ const Movie = () => {
                   }}
                 >
                   <p
-                    className="m-0 p-0"
+                    className="m-0 p-0 font-sans"
                     style={{
                       fontSize: "1em",
                       boxSizing: "border-box",
@@ -111,52 +120,6 @@ const Movie = () => {
                   >
                     {movie.overview}
                   </p>
-                </div>
-                <div
-                  style={{
-                    marginTop: "20px",
-                    justifyContent: "flex-start",
-                    flexWrap: "wrap",
-                    padding: 0,
-                    display: "flex",
-                    position: "relative",
-                    top: 0,
-                    left: 0,
-                  }}
-                >
-                  <div
-                    style={{
-                      backgroundColor: "transparent",
-                      height: "auto",
-                      marginBottom: 0,
-                      width: "33%",
-                      flexBasis: "33%",
-                      textAlign: "left",
-                      marginRight: 0,
-                      boxSizing: "border-box",
-                      paddingRight: "20px",
-                    }}
-                  >
-                    <p
-                      className="p-0 m-0 overflow-hidden"
-                      style={{
-                        textOverflow: "ellipsis",
-                        fontWeight: "bold",
-                        color: "#000",
-                      }}
-                    >
-                      Reggie Yates
-                    </p>
-                    <p
-                      className="p-0 m-0 overflow-hidden"
-                      style={{
-                        textOverflow: "ellipsis",
-                        fontSize: "0.9em",
-                      }}
-                    >
-                      Director, Writer
-                    </p>
-                  </div>
                 </div>
               </div>
             </div>
