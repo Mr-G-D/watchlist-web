@@ -3,6 +3,7 @@ import Categories from "../components/Categories";
 import { AiOutlineStar } from "react-icons/ai";
 import { TfiClose } from "react-icons/tfi";
 import Comments from "../components/Comments";
+import Providers from "../components/Providers";
 
 const Movie = () => {
   return (
@@ -160,7 +161,9 @@ const Movie = () => {
           <div className="w-3/4">
             <Categories name="Cast" url={`/movie/${238}/credits`} type={2} />
           </div>
-          <div className="w-1/4">Providers</div>
+          <div className="w-1/4">
+            <Providers id={238} />
+          </div>
         </div>
         <div
           className="
