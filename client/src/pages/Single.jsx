@@ -17,7 +17,6 @@ const Single = () => {
       const res = await fetchData(`/movie/${id}`);
       if (res.status === 200) {
         setData(res.data);
-        console.log(res.data);
       } else {
         console.log("Error");
       }

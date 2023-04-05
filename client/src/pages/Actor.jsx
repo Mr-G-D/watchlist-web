@@ -13,7 +13,6 @@ const Actor = () => {
     const fetchActor = async () => {
       const res = await fetchData(`/person/${id}`);
       if (res.status === 200) {
-        console.log(res.data);
         setActor(res.data);
       } else {
         console.log("error");
