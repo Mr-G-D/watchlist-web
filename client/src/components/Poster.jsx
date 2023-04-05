@@ -1,9 +1,11 @@
 import { Card } from "antd";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const { Meta } = Card;
 
 const Poster = ({ data, type }) => {
+  const navigate = useNavigate();
   function formatDate(date) {
     var monthNames = [
       "Jan",
@@ -33,7 +35,14 @@ const Poster = ({ data, type }) => {
       <Card
         onClick={() => {
           if (type === 1) {
-            window.location.href = `/movie/${data.id}`;
+            navigate(`/movie/${data.id}`);
+          }
+          if (type === 2) {
+            navigate(`/actor/${data.name}`, {
+              state: {
+                id: data.id,
+              },
+            });
           }
         }}
         className=""
