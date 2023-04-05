@@ -23,7 +23,7 @@ const Banner = ({ banner, poster, title, bio, genres, description, date }) => {
             "linear-gradient(to right, rgba(220.5, 220.5, 220.5, 1) calc((50vw - 170px) - 340px), rgba(220.5, 220.5, 220.5, 0.84) 30%, rgba(220.5, 220.5, 220.5, 0.84) 100%)",
         }}
       >
-        <div className="flex">
+        <div>
           <div
             style={{
               height: "90%",
@@ -102,10 +102,10 @@ const Banner = ({ banner, poster, title, bio, genres, description, date }) => {
             </div>
           </div>
 
-          <div className="m-10">
-            <AiOutlineStar className="cursor-pointer" size={15} />
+          <div className="m-10 absolute top-0 right-20">
+            <AiOutlineStar className="cursor-pointer" size={25} />
           </div>
-          <div className="m-10 ">
+          <div className="m-10 absolute top-1.5 right-0">
             <TfiClose
               className="cursor-pointer"
               size={15}
