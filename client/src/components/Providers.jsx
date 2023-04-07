@@ -11,9 +11,9 @@ const Providers = ({ id }) => {
     const fetchProviders = async () => {
       let res;
       if (type === "show") {
-        res = await fetchData(`/tv/${id}/watch/providers`);
+        res = await fetchData(`tv/${id}/watch/providers`);
       } else {
-        res = await fetchData(`/movie/${id}/watch/providers`);
+        res = await fetchData(`movie/${id}/watch/providers`);
       }
 
       if (res.status === 200) {

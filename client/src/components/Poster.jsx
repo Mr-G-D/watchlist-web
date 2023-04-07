@@ -31,7 +31,7 @@ const Poster = ({ data, type }) => {
     );
   }
   return (
-    <div className="w-[180px] inline-block my-5 mx-5">
+    <div key={data.id} className="w-[180px] inline-block my-5 mx-5">
       <Card
         onClick={() => {
           if (type === 1) {
@@ -52,6 +52,7 @@ const Poster = ({ data, type }) => {
             height="270"
             width="50"
             alt="example"
+            className="object-cover"
             src={
               data.poster_path
                 ? `https://www.themoviedb.org/t/p/w220_and_h330_face/${data.poster_path}`

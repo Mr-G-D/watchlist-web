@@ -17,14 +17,13 @@ const Single = () => {
   useEffect(() => {
     const fetchMovie = async () => {
       let res;
-      if (type === "show") {
-        res = await fetchData(`/tv/${id}`);
+      if (type === "movies") {
+        res = await fetchData(`movie/${id}`);
       } else {
-        res = await fetchData(`/movie/${id}`);
+        res = await fetchData(`tv/${id}`);
       }
 
       if (res.status === 200) {
-        console.log(res.data);
         setData(res.data);
       } else {
         console.log("Error");
@@ -49,9 +48,7 @@ const Single = () => {
           <div className="w-3/4">
             <Categories
               name="Cast"
-              url={
-                type === "show" ? `/tv/${id}/credits` : `/movie/${id}/credits`
-              }
+              url={type === "show" ? `tv/${id}/credits` : `movie/${id}/credits`}
               type={2}
             />
           </div>

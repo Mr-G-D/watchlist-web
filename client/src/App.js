@@ -19,7 +19,6 @@ function App() {
   const handleType = (type) => {
     localStorage.setItem("type", type);
     setType(type);
-    console.log(type);
   };
   const store = {
     type: type,
@@ -31,7 +30,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/">
-              <Route index element={<Home />} />
+              <Route index element={<Home type={type} />} />
               <Route exact path="/movie/:id" element={<Single />} />
               <Route exact path="/actor/:name" element={<Actor />} />
             </Route>

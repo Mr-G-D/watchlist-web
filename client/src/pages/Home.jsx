@@ -7,7 +7,7 @@ import { fetchData } from "../main/api";
 const Home = () => {
   const [url, setUrl] = useState("/trending/all/day");
   const [filter, setFilter] = useState(false);
-  const [genre, setGenre] = useState([]);
+  const [genres, setGenres] = useState([]);
 
   const handleData = (movieUrl) => {
     setUrl(movieUrl);
@@ -18,7 +18,7 @@ const Home = () => {
     const fetch = async () => {
       const res = await fetchData("genre/movie/list");
       if (res.status === 200) {
-        setGenre(res.data.genres);
+        setGenres(res.data.genres);
       } else {
         console.log("No Data");
       }
@@ -35,7 +35,7 @@ const Home = () => {
           borderRightWidth: "2px",
         }}
       >
-        <Sidebar genre={genre} />
+        <Sidebar genre={genres} />
       </div>
       <div className="basis-4/5 w-[80%]">
         {filter ? (

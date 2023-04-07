@@ -1,17 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Banner from "../components/Banner";
 import { useLocation } from "react-router-dom";
 import { fetchData } from "../main/api";
 import Poster from "../components/Poster";
+import { TypeConext } from "../App";
 
 const Actor = () => {
+  const { type } = useContext(TypeConext);
   const [actor, setActor] = useState({});
   const [movies, setMovies] = useState([]);
   const { state } = useLocation();
   const id = state.id;
   useEffect(() => {
     const fetchActor = async () => {
-      const res = await fetchData(`/person/${id}`);
+      const res = await fetchData(`person/${id}`);
       if (res.status === 200) {
         setActor(res.data);
       } else {
@@ -19,16 +21,20 @@ const Actor = () => {
       }
     };
     const fetchMovies = async () => {
-      const res = await fetchData(`/person/${id}/movie_credits`);
+      const res = await fetchData(
+        type === "movies"
+          ? `person/${id}/movie_credits`
+          : `person/${id}/tv_credits`,
+      );
       if (res.status === 200) {
-        setMovies(res.data.cast);
+        setMovies(res.data.cast.sort((a, b) => b.popularity - a.popularity));
       } else {
         console.log("error");
       }
     };
     fetchActor();
     fetchMovies();
-  }, [id]);
+  }, [id, type]);
   return (
     <section>
       <Banner
@@ -48,8 +54,8 @@ const Actor = () => {
           }}
         >
           {movies?.map((ele) => (
-            <div>
-              <Poster key={ele.id} data={ele} type={1} />
+            <div key={ele.id}>
+              <Poster data={ele} type={1} />
             </div>
           ))}
         </div>

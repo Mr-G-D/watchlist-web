@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { fetchData } from "../main/api";
+import { TypeConext } from "../App";
 
 const Comments = ({ id }) => {
+  const { type } = useContext(TypeConext);
   const [reviews, setReviews] = useState([]);
   useEffect(() => {
     const fetchReviews = async () => {
-      const res = await fetchData(`movie/${id}/reviews`);
+      const res = await fetchData(
+        type === "movies" ? `movie/${id}/reviews` : `tv/${id}/reviews`,
+      );
       if (res.status === 200) {
         setReviews(res.data.results);
       } else {
@@ -13,7 +17,7 @@ const Comments = ({ id }) => {
       }
     };
     fetchReviews();
-  }, [id]);
+  }, [id, type]);
 
   return reviews.length !== 0 ? (
     <section className="relative flex flex-col items-start justify-center antialiased bg-white font-sans overflow-scroll">
