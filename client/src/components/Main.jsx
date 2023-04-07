@@ -1,9 +1,11 @@
 import { Button } from "antd";
-import React from "react";
+import React, { useContext } from "react";
 import Categories from "./Categories";
 import { SearchOutlined } from "@ant-design/icons";
+import { TypeConext } from "../App";
 
 const Main = ({ setFilter, handleData }) => {
+  const { type } = useContext(TypeConext);
   return (
     <div className="font-sans overflow-scroll h-screen">
       <div className="mx-8 my-2 flex flex-row justify-between align-middle items-center">
@@ -27,22 +29,22 @@ const Main = ({ setFilter, handleData }) => {
       <div>
         <Categories
           handleData={handleData}
-          name="Now Playing"
-          url="/movie/now_playing"
+          name={type === "show" ? "Airing Today" : "Now Playing"}
+          url={type === "show" ? "/tv/airing_today" : "/movie/now_playing"}
           id={1}
           type={1}
         />
         <Categories
           handleData={handleData}
           name="Popular"
-          url="/movie/popular"
+          url={type === "show" ? "/tv/popular" : "/movie/popular"}
           id={2}
           type={1}
         />
         <Categories
           handleData={handleData}
           name="Top Rated"
-          url="/movie/top_rated"
+          url={type === "show" ? "/tv/top_rated" : "/movie/top_rated"}
           id={3}
           type={1}
         />

@@ -1,13 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { fetchData } from "../main/api";
+import { TypeConext } from "../App";
 
 const Providers = ({ id }) => {
   const [buy, setBuy] = useState([]);
   const [rent, setRent] = useState([]);
   const [stream, setStream] = useState([]);
+  const { type } = useContext(TypeConext);
   useEffect(() => {
     const fetchProviders = async () => {
-      const res = await fetchData(`/movie/${id}/watch/providers`);
+      let res;
+      if (type === "show") {
+        res = await fetchData(`/tv/${id}/watch/providers`);
+      } else {
+        res = await fetchData(`/movie/${id}/watch/providers`);
+      }
+
       if (res.status === 200) {
         setBuy(
           res.data.results.IN?.buy
