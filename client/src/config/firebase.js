@@ -1,12 +1,21 @@
 import { initializeApp } from "firebase/app";
+import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import config from "./db";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyByzCGAGsXRE7eMpyd_A18gLKJ7-Dk7wkk",
-  authDomain: "crypto-portfolio-6dced.firebaseapp.com",
-  projectId: "crypto-portfolio-6dced",
-  storageBucket: "crypto-portfolio-6dced.appspot.com",
-  messagingSenderId: "279818555115",
-  appId: "1:279818555115:web:65c63a872f25bb78aef8ae",
-};
+const firebaseConfig = config;
 
 export const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
+
+export const signInWithGoogle = async () => {
+  try {
+    const res = await signInWithPopup(auth, provider);
+    if (res) {
+      return res;
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};

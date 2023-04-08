@@ -1,13 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { Filter } from "../components/Filter";
 import Main from "../components/Main";
 import Sidebar from "../components/Sidebar";
 import { fetchData } from "../main/api";
 
+export const FilterProvider = createContext();
+
 const Home = () => {
   const [url, setUrl] = useState("/trending/all/day");
   const [filter, setFilter] = useState(false);
   const [genres, setGenres] = useState([]);
+
+  const filterData = {
+    filter,
+    setFilter,
+  };
 
   const handleData = (movieUrl) => {
     setUrl(movieUrl);
@@ -38,11 +45,9 @@ const Home = () => {
         <Sidebar genre={genres} />
       </div>
       <div className="basis-4/5 w-[80%]">
-        {filter ? (
-          <Filter setFilter={setFilter} data={url} />
-        ) : (
-          <Main setFilter={setFilter} handleData={handleData} />
-        )}
+        <FilterProvider.Provider value={filterData}>
+          {filter ? <Filter data={url} /> : <Main handleData={handleData} />}
+        </FilterProvider.Provider>
       </div>
     </div>
   );

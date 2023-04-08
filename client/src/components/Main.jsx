@@ -1,31 +1,13 @@
-import { Button } from "antd";
 import React, { useContext } from "react";
 import Categories from "./Categories";
-import { SearchOutlined } from "@ant-design/icons";
 import { TypeConext } from "../App";
+import Navbar from "./Navbar";
 
-const Main = ({ setFilter, handleData }) => {
+const Main = ({ handleData }) => {
   const { type } = useContext(TypeConext);
   return (
     <div className="font-sans overflow-scroll h-screen">
-      <div className="mx-8 my-2 flex flex-row justify-between align-middle items-center">
-        <Button
-          onClick={() => setFilter(true)}
-          type="primary"
-          icon={<SearchOutlined />}
-        >
-          Search
-        </Button>
-
-        <div className="flex flex-row justify-between items-center">
-          <p className="font-medium">John Doe</p>
-          <img
-            src="https://i.pravatar.cc/500"
-            className="w-12 m-2 rounded-full"
-            alt="logo"
-          />
-        </div>
-      </div>
+      <Navbar />
       <div>
         <Categories
           handleData={handleData}

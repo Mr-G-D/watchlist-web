@@ -1,15 +1,13 @@
-import { Input } from "antd";
 import React, { useContext, useEffect, useState } from "react";
-import { TfiClose } from "react-icons/tfi";
 import { fetchData } from "../main/api";
 import Poster from "./Poster";
 import axios from "axios";
 import { TypeConext } from "../App";
+import Navbar from "./Navbar";
 
-export const Filter = ({ setFilter, data }) => {
+export const Filter = ({ data }) => {
   const [movieData, setMovieData] = useState([]);
   const [temp, setTemp] = useState([]);
-  const { Search } = Input;
   const { type } = useContext(TypeConext);
 
   useEffect(() => {
@@ -26,7 +24,6 @@ export const Filter = ({ setFilter, data }) => {
   }, [data]);
 
   const onSearch = async (value) => {
-    console.log(value);
     try {
       const res = await axios.get(
         type === "show"
@@ -57,33 +54,7 @@ export const Filter = ({ setFilter, data }) => {
 
   return (
     <div className="font-sans">
-      <div className="mx-8 my-2 flex flex-row justify-between align-middle">
-        <div className="flex w-[80%] items-center">
-          <Search
-            placeholder="Search"
-            onSearch={onSearch}
-            onChange={handleSearch}
-            style={{ width: "70%", padding: 25, height: "auto" }}
-          />
-
-          <div>
-            <TfiClose
-              className="cursor-pointer"
-              size={20}
-              onClick={() => setFilter(false)}
-            />
-          </div>
-        </div>
-
-        <div className="flex flex-row justify-between items-center">
-          <p className="font-medium">John Doe</p>
-          <img
-            src="https://i.pravatar.cc/500"
-            className="w-12 m-2 rounded-full"
-            alt="logo"
-          />
-        </div>
-      </div>
+      <Navbar onSearch={onSearch} handleSearch={handleSearch} />
       <div>
         <div
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 overflow-auto"

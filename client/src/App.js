@@ -5,9 +5,11 @@ import Home from "./pages/Home.jsx";
 import Single from "./pages/Single";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
+import secureLocalStorage from "react-secure-storage";
 
 export const TypeConext = createContext();
 function App() {
+  const [user, setUser] = useState();
   const [type, setType] = useState();
   useEffect(() => {
     if (localStorage.getItem("type") === null) {
@@ -15,14 +17,23 @@ function App() {
     } else {
       setType(localStorage.getItem("type"));
     }
+    if (secureLocalStorage.getItem("user") !== null) {
+      setUser(secureLocalStorage.getItem("user"));
+    }
   }, []);
   const handleType = (type) => {
     localStorage.setItem("type", type);
     setType(type);
   };
+  const handleUser = (user) => {
+    secureLocalStorage.setItem("user", user);
+    setUser(user);
+  };
   const store = {
     type: type,
     setType: handleType,
+    user,
+    setUser: handleUser,
   };
   return (
     <div className="App h-full w-screen">
