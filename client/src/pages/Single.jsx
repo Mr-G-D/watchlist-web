@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import Categories from "../components/Categories";
 import Comments from "../components/Comments";
 import Providers from "../components/Providers";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { fetchData } from "../main/api";
 import Banner from "../components/Banner";
@@ -13,6 +13,8 @@ const Single = () => {
 
   const [data, setData] = useState({});
   const { type } = useContext(TypeConext);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchMovie = async () => {
@@ -26,11 +28,13 @@ const Single = () => {
       if (res.status === 200) {
         setData(res.data);
       } else {
-        console.log("Error");
+        console.clear();
+        await navigate("/");
+        alert("Data Not Available");
       }
     };
     fetchMovie();
-  }, [id, type]);
+  }, [id, type, navigate]);
   return (
     <section>
       <Banner

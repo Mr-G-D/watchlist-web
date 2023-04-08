@@ -23,11 +23,11 @@ const Poster = ({ data, type }) => {
     ];
 
     return (
-      date?.slice(0, 4) +
+      (date ? date.slice(0, 4) : "") +
       " " +
-      monthNames[parseInt(date?.slice(5, 7)) - 1] +
+      (date ? monthNames[parseInt(date?.slice(5, 7)) - 1] : "") +
       " " +
-      date?.slice(8, 10)
+      (date ? date?.slice(8, 10) : "--")
     );
   }
   return (
@@ -54,11 +54,13 @@ const Poster = ({ data, type }) => {
             alt="example"
             className="object-cover"
             src={
-              data.poster_path
-                ? `https://www.themoviedb.org/t/p/w220_and_h330_face/${data.poster_path}`
+              type === 1
+                ? data.poster_path
+                  ? `https://www.themoviedb.org/t/p/w220_and_h330_face/${data.poster_path}`
+                  : "https://www.logistec.com/wp-content/uploads/2017/12/placeholder.png"
                 : data.profile_path
                 ? `https://www.themoviedb.org/t/p/w220_and_h330_face/${data.profile_path}`
-                : `https://i.pravatar.cc/300?u=${data.name}`
+                : `https://www.crossmanworkerscomp.com/wp-content/uploads/2015/06/person-placeholder.jpg`
             }
           />
         }

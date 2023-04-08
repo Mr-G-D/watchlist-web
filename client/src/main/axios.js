@@ -7,6 +7,6 @@ export const axiosGet = async (url) => {
     );
     return res;
   } catch (error) {
-    console.log(error);
+    return error;
   }
 };
