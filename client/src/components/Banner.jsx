@@ -9,7 +9,6 @@ const Banner = ({ banner, poster, title, bio, genres, description, date }) => {
     <div
       style={{
         backgroundImage: `url("https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces${banner}")`,
-        height: "50vh",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         backgroundPosition: "center",
@@ -17,8 +16,8 @@ const Banner = ({ banner, poster, title, bio, genres, description, date }) => {
       }}
     >
       <div
+        className="lg:h-[50vh]"
         style={{
-          height: "50vh",
           backgroundImage:
             "linear-gradient(to right, rgba(220.5, 220.5, 220.5, 1) calc((50vw - 170px) - 340px), rgba(220.5, 220.5, 220.5, 0.84) 30%, rgba(220.5, 220.5, 220.5, 0.84) 100%)",
         }}
@@ -28,7 +27,7 @@ const Banner = ({ banner, poster, title, bio, genres, description, date }) => {
             style={{
               height: "90%",
             }}
-            className=" p-5 flex items-center"
+            className="p-5 flex items-center flex-col md:flex-row"
           >
             <div className="w-60 p-5">
               <img
@@ -39,6 +38,7 @@ const Banner = ({ banner, poster, title, bio, genres, description, date }) => {
             </div>
 
             <div
+              className="text-center md:text-start"
               style={{
                 width: "70%",
               }}
@@ -51,16 +51,20 @@ const Banner = ({ banner, poster, title, bio, genres, description, date }) => {
               >
                 {title}
               </h2>
-              <div className="flex">
+              <div className={genres ? "flex" : ""}>
                 <span className="pl-0 relative top-0 left-0 font-sans">
                   {date}
                 </span>
-                <span className="pl-5 relative top-0 left-0 font-sans font-medium">
-                  {genres?.map(
-                    (ele, index) =>
-                      ele.name + (index === genres.length - 1 ? "" : ", "),
-                  )}
-                </span>
+                {genres ? (
+                  <span className="pl-5 relative top-0 left-0 font-sans font-medium">
+                    {genres?.map(
+                      (ele, index) =>
+                        ele.name + (index === genres.length - 1 ? "" : ", "),
+                    )}
+                  </span>
+                ) : (
+                  ""
+                )}
               </div>
               <h3
                 className="mb-0"
@@ -90,7 +94,7 @@ const Banner = ({ banner, poster, title, bio, genres, description, date }) => {
                 }}
               >
                 <p
-                  className="m-0 p-0 font-sans"
+                  className="m-0 p-0 font-sans text-justify"
                   style={{
                     fontSize: "1em",
                     boxSizing: "border-box",
@@ -102,10 +106,10 @@ const Banner = ({ banner, poster, title, bio, genres, description, date }) => {
             </div>
           </div>
 
-          <div className="m-10 absolute top-0 right-20">
+          <div className="m-5 sm:m-10 absolute top-0  md:right-20 ">
             <AiOutlineStar className="cursor-pointer" size={25} />
           </div>
-          <div className="m-10 absolute top-1.5 right-0">
+          <div className="m-5 sm:m-10 absolute top-1.5 right-0">
             <TfiClose
               className="cursor-pointer"
               size={15}

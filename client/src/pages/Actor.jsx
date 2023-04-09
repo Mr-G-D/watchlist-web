@@ -41,14 +41,14 @@ const Actor = () => {
         poster={actor.profile_path}
         title={actor.name}
         bio={actor.known_for_department}
-        genres={[]}
+        genres={null}
         description={actor.biography?.slice(0, 800)}
         date={actor.birthday}
       />
 
       <div>
         <div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 overflow-auto"
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 overflow-auto"
           style={{
             textAlignLast: "center",
           }}
