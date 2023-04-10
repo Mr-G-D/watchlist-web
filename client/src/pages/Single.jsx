@@ -49,15 +49,15 @@ const Single = () => {
       />
 
       <div className="">
-        <div className="flex">
-          <div className="w-3/4">
+        <div className="flex max-w-full flex-col text-center lg:flex-row  lg:text-start">
+          <div className="w-full lg:w-3/4">
             <Categories
               name="Cast"
               url={type === "tv" ? `tv/${id}/credits` : `movie/${id}/credits`}
               type={2}
             />
           </div>
-          <div className="w-1/4">
+          <div className="w-full lg:w-1/4">
             <Providers id={id} />
           </div>
         </div>

@@ -41,10 +41,10 @@ const Providers = ({ id }) => {
   return (
     <section className="font-sans mt-5">
       <h2 className="mx-8 mt-5 mb-0 font-bold   inline">Watch Now</h2>
-      <div className="flex flex-col items-start justify-evenly text-start mx-16">
+      <div className="flex flex-col items-start justify-evenly text-center mx-16">
         {buy ? (
           <div className="w-full">
-            <h3 className="font-medium mt-3 mx-5">Buy</h3>
+            <h3 className="font-medium mt-3">Buy</h3>
             {Service(buy?.slice(0, 4))}
           </div>
         ) : (
@@ -53,7 +53,7 @@ const Providers = ({ id }) => {
 
         {rent ? (
           <div className="w-full">
-            <h3 className="font-medium mt-3 mx-5">Rent</h3>
+            <h3 className="font-medium mt-3">Rent</h3>
             {Service(rent?.slice(0, 4))}
           </div>
         ) : (
@@ -76,9 +76,9 @@ const Providers = ({ id }) => {
 export default Providers;
 
 const Service = (data) => (
-  <div key={data.id} className="flex justify-start w-full">
+  <div key={data.id} className="flex justify-center xl:justify-start w-full">
     {data?.map((ele, index) => (
-      <div className="mx-5" key={index}>
+      <div className="mx-4" key={index}>
         <img
           className="w-8 h-auto"
           src={`https://www.themoviedb.org/t/p/w220_and_h330_face${ele.logo_path}`}
