@@ -34,9 +34,9 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="flex flex-row h-full">
+    <div className="flex flex-row h-full max-w-full">
       <div
-        className="basis-1/5  border-slate-200"
+        className="basis-1/5 border-slate-200 bg-white z-10 hidden xl:block xl:static "
         style={{
           borderRightStyle: "solid",
           borderRightWidth: "2px",
@@ -44,7 +44,7 @@ const Home = () => {
       >
         <Sidebar genre={genres} />
       </div>
-      <div className="basis-4/5 w-[80%]">
+      <div className="w-full xl:w-[80%] xl:basis-4/5">
         <FilterProvider.Provider value={filterData}>
           {filter ? <Filter data={url} /> : <Main handleData={handleData} />}
         </FilterProvider.Provider>

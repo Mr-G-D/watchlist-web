@@ -37,12 +37,7 @@ const Sidebar = ({ genre }) => {
       </div>
       <div className="mt-8">
         <h2 className="font-bold mb-5">Genres</h2>
-        <div
-          className="mt-4 overflow-auto"
-          style={{
-            maxHeight: "39rem",
-          }}
-        >
+        <div className="mt-4 overflow-scroll max-h-[39rem]">
           {genre?.map((ele) => (
             <p key={ele.id} className="font-medium text-lg">
               {ele.name}
