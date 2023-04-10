@@ -65,11 +65,7 @@ const Navbar = ({ onSearch, handleSearch }) => {
             />
           </>
         ) : (
-          <Button
-            type="primary"
-            onClick={handleSignIn}
-            icon={<SearchOutlined />}
-          >
+          <Button type="primary" onClick={handleSignIn}>
             Sign In
           </Button>
         )}
