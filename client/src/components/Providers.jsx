@@ -41,14 +41,14 @@ const Providers = ({ id }) => {
   return (
     <section className="font-sans mt-5">
       <h2 className="mx-8 mt-5 mb-0 font-bold   inline">Watch Now</h2>
-      <div className="flex flex-col items-start justify-evenly text-center mx-16">
+      <div className="flex flex-col items-start justify-evenly text-center mx-16 ">
         {buy ? (
           <div className="w-full">
             <h3 className="font-medium mt-3">Buy</h3>
             {Service(buy?.slice(0, 4))}
           </div>
         ) : (
-          <h3 className="font-medium mt-3 ">No Purchase Options</h3>
+          <h3 className="font-medium mt-3 self-center ">No Purchase Options</h3>
         )}
 
         {rent ? (
@@ -57,7 +57,7 @@ const Providers = ({ id }) => {
             {Service(rent?.slice(0, 4))}
           </div>
         ) : (
-          <h3 className="font-medium mt-3 ">No Renting Options</h3>
+          <h3 className="font-medium mt-3  self-center">No Renting Options</h3>
         )}
 
         {stream ? (
@@ -66,7 +66,9 @@ const Providers = ({ id }) => {
             {Service(stream?.slice(0, 4))}
           </div>
         ) : (
-          <h3 className="font-medium mt-3 ">No Streaming Options</h3>
+          <h3 className="font-medium mt-3  self-center">
+            No Streaming Options
+          </h3>
         )}
       </div>
     </section>

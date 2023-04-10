@@ -37,7 +37,7 @@ const Comments = ({ id, url }) => {
                     2 weeks ago
                   </span>
                 </div>
-                <div className="flex-1 pr-1 ml-2 text-sm font-medium leading-loose text-gray-600 text-justify">
+                <div className="flex-1 pr-8 ml-2 text-sm font-medium leading-loose text-gray-600 text-justify">
                   {ele.content}
                 </div>
               </div>
