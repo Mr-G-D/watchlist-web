@@ -18,22 +18,23 @@ const Single = () => {
 
   useEffect(() => {
     const fetchMovie = async () => {
-      let res;
-      if (type === "movies") {
-        res = await fetchData(`movie/${id}`);
-      } else {
-        res = await fetchData(`tv/${id}`);
-      }
+      const res = await fetchData(`${type}/${id}`);
+      // if (type === "movie") {
+      //   res = await fetchData(`movie/${id}`);
+      // } else if (type === "tv") {
+      //   res = await fetchData(`tv/${id}`);
+      // }
 
       if (res.status === 200) {
         setData(res.data);
       } else {
-        console.clear();
-        await navigate("/");
-        alert("Data Not Available");
+        alert("No Data");
+        navigate(-1);
       }
     };
-    fetchMovie();
+    if (type) {
+      fetchMovie();
+    }
   }, [id, type, navigate]);
   return (
     <section>
@@ -52,7 +53,7 @@ const Single = () => {
           <div className="w-3/4">
             <Categories
               name="Cast"
-              url={type === "show" ? `tv/${id}/credits` : `movie/${id}/credits`}
+              url={type === "tv" ? `tv/${id}/credits` : `movie/${id}/credits`}
               type={2}
             />
           </div>
@@ -61,7 +62,10 @@ const Single = () => {
           </div>
         </div>
         <div className="">
-          <Comments id={id} />
+          <Comments
+            id={id}
+            url={type === "tv" ? `tv/${id}/reviews` : `movie/${id}/reviews`}
+          />
         </div>
       </div>
     </section>

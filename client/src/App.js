@@ -13,7 +13,7 @@ function App() {
   const [type, setType] = useState();
   useEffect(() => {
     if (localStorage.getItem("type") === null) {
-      localStorage.setItem("type", "movies");
+      localStorage.setItem("type", "movie");
     } else {
       setType(localStorage.getItem("type"));
     }

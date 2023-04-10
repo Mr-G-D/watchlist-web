@@ -31,7 +31,11 @@ const Poster = ({ data, type }) => {
     );
   }
   return (
-    <div key={data.id} className="w-[180px] inline-block my-5 mx-5">
+    <div
+      title={data.title ? data.title : data.name}
+      key={data.id}
+      className="w-[180px] inline-block my-5 mx-5"
+    >
       <Card
         onClick={() => {
           if (type === 1) {

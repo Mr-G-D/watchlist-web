@@ -11,22 +11,22 @@ const Main = ({ handleData }) => {
       <div>
         <Categories
           handleData={handleData}
-          name={type === "show" ? "Airing Today" : "Now Playing"}
-          url={type === "show" ? "/tv/airing_today" : "/movie/now_playing"}
+          name={type === "tv" ? "Airing Today" : "Now Playing"}
+          url={type === "tv" ? "/tv/airing_today" : "/movie/now_playing"}
           id={1}
           type={1}
         />
         <Categories
           handleData={handleData}
           name="Popular"
-          url={type === "show" ? "/tv/popular" : "/movie/popular"}
+          url={type === "tv" ? "/tv/popular" : "/movie/popular"}
           id={2}
           type={1}
         />
         <Categories
           handleData={handleData}
           name="Top Rated"
-          url={type === "show" ? "/tv/top_rated" : "/movie/top_rated"}
+          url={type === "tv" ? "/tv/top_rated" : "/movie/top_rated"}
           id={3}
           type={1}
         />

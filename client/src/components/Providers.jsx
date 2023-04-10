@@ -10,7 +10,7 @@ const Providers = ({ id }) => {
   useEffect(() => {
     const fetchProviders = async () => {
       let res;
-      if (type === "show") {
+      if (type === "tv") {
         res = await fetchData(`tv/${id}/watch/providers`);
       } else {
         res = await fetchData(`movie/${id}/watch/providers`);
@@ -34,7 +34,9 @@ const Providers = ({ id }) => {
         );
       }
     };
-    fetchProviders();
+    if (type) {
+      fetchProviders();
+    }
   });
   return (
     <section className="font-sans mt-5">

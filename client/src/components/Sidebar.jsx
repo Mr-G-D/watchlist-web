@@ -15,20 +15,20 @@ const Sidebar = ({ genre }) => {
         <div className="mt-4 overflow-auto">
           <p
             onClick={() => {
-              setType("movies");
+              setType("movie");
             }}
             className={` text-lg cursor-pointer ${
-              type === "show" ? "font-medium" : "font-bold"
+              type === "tv" ? "font-medium" : "font-bold"
             }`}
           >
             Movies
           </p>
           <p
             onClick={() => {
-              setType("show");
+              setType("tv");
             }}
             className={` text-lg cursor-pointer ${
-              type === "show" ? "font-bold" : "font-medium"
+              type === "tv" ? "font-bold" : "font-medium"
             }`}
           >
             Tv Show

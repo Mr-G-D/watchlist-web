@@ -22,7 +22,7 @@ const Actor = () => {
     };
     const fetchMovies = async () => {
       const res = await fetchData(
-        type === "movies"
+        type === "movie"
           ? `person/${id}/movie_credits`
           : `person/${id}/tv_credits`,
       );

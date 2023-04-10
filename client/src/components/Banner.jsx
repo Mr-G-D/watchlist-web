@@ -51,7 +51,7 @@ const Banner = ({ banner, poster, title, bio, genres, description, date }) => {
               >
                 {title}
               </h2>
-              <div className={genres ? "flex" : ""}>
+              <div className={genres ? "flex flex-col md:flex-row" : ""}>
                 <span className="pl-0 relative top-0 left-0 font-sans">
                   {date}
                 </span>
