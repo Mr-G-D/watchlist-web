@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { TypeConext } from "../App";
 
-const Sidebar = ({ genre }) => {
+const Sidebar = ({ genre, setSidebar }) => {
   const { type, setType } = useContext(TypeConext);
   return (
     <div className="my-6 mx-8 font-sans">
@@ -16,6 +16,7 @@ const Sidebar = ({ genre }) => {
           <p
             onClick={() => {
               setType("movie");
+              setSidebar(false);
             }}
             className={` text-lg cursor-pointer ${
               type === "tv" ? "font-medium" : "font-bold"
@@ -26,6 +27,7 @@ const Sidebar = ({ genre }) => {
           <p
             onClick={() => {
               setType("tv");
+              setSidebar(false);
             }}
             className={` text-lg cursor-pointer ${
               type === "tv" ? "font-bold" : "font-medium"
@@ -37,7 +39,7 @@ const Sidebar = ({ genre }) => {
       </div>
       <div className="mt-8">
         <h2 className="font-bold mb-5">Genres</h2>
-        <div className="mt-4 overflow-scroll max-h-[39rem]">
+        <div className="mt-4 overflow-scroll max-h-[32.09rem] xl:max-h-[39rem]">
           {genre?.map((ele) => (
             <p key={ele.id} className="font-medium text-lg">
               {ele.name}

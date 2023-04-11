@@ -5,10 +5,12 @@ import { TypeConext } from "../App";
 import { signInWithGoogle } from "../config/firebase";
 import { TfiClose } from "react-icons/tfi";
 import { FilterProvider } from "../pages/Home";
+import { GiHamburgerMenu } from "react-icons/gi";
 
 const Navbar = ({ onSearch, handleSearch }) => {
   const { filter, setFilter } = useContext(FilterProvider);
   const { user, setUser } = useContext(TypeConext);
+  const { setSidebar } = useContext(FilterProvider);
   const { Search } = Input;
 
   const handleSignIn = async () => {
@@ -27,40 +29,51 @@ const Navbar = ({ onSearch, handleSearch }) => {
         height: 64,
       }}
     >
-      {filter ? (
-        <div className="flex w-[80%] items-center">
-          <Search
-            placeholder="Search"
-            onSearch={onSearch}
-            onChange={handleSearch}
-            style={{ width: "70%", padding: 25, height: "auto" }}
-          />
-
-          <div>
-            <TfiClose
-              className="cursor-pointer"
-              size={20}
-              onClick={() => setFilter(false)}
+      <div className="flex align-middle items-center justify-start w-full">
+        {filter ? (
+          <div className="flex w-[100%]  items-center">
+            <Search
+              placeholder="Search"
+              onSearch={onSearch}
+              onChange={handleSearch}
+              style={{ width: "70%", padding: 25, height: "auto" }}
             />
+
+            <div>
+              <TfiClose
+                className="cursor-pointer"
+                size={20}
+                onClick={() => setFilter(false)}
+              />
+            </div>
           </div>
-        </div>
-      ) : (
-        <Button
-          onClick={() => setFilter(true)}
-          type="primary"
-          icon={<SearchOutlined />}
-        >
-          Search
-        </Button>
-      )}
+        ) : (
+          <>
+            <div className="xl:hidden">
+              <GiHamburgerMenu
+                onClick={() => setSidebar(true)}
+                size={20}
+                className="mx-4"
+              />
+            </div>
+            <Button
+              onClick={() => setFilter(true)}
+              type="primary"
+              icon={<SearchOutlined />}
+            >
+              Search
+            </Button>
+          </>
+        )}
+      </div>
 
       <div className="flex flex-row justify-between items-center">
         {user ? (
           <>
-            <p className="font-medium">{user.name}</p>
+            <p className="font-medium hidden md:block">{user.name}</p>
             <img
               src={user.image}
-              className="w-12 m-2 rounded-full"
+              className="w-10 md:w-12 m-2 rounded-full"
               alt="logo"
             />
           </>
