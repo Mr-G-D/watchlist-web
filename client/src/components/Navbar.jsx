@@ -1,4 +1,4 @@
-import { Button, Input } from "antd";
+import { Button, Dropdown, Input } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import { useContext } from "react";
 import { TypeConext } from "../App";
@@ -6,6 +6,8 @@ import { signInWithGoogle } from "../config/firebase";
 import { TfiClose } from "react-icons/tfi";
 import { FilterProvider } from "../pages/Home";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { SlLogout } from "react-icons/sl";
+import secureLocalStorage from "react-secure-storage";
 
 const Navbar = ({ onSearch, handleSearch }) => {
   const { filter, setFilter } = useContext(FilterProvider);
@@ -20,6 +22,23 @@ const Navbar = ({ onSearch, handleSearch }) => {
       image: user.photoURL,
       email: user.email,
     });
+  };
+
+  const logout = async () => {
+    await secureLocalStorage.clear();
+    window.location.reload();
+  };
+  const items = [
+    {
+      label: "Logout",
+      key: 1,
+      icon: <SlLogout />,
+      onClick: logout,
+    },
+  ];
+
+  const menuProps = {
+    items,
   };
 
   return (
@@ -70,12 +89,16 @@ const Navbar = ({ onSearch, handleSearch }) => {
       <div className="flex flex-row justify-between items-center">
         {user ? (
           <>
-            <p className="font-medium hidden md:block">{user.name}</p>
-            <img
-              src={user.image}
-              className="w-10 md:w-12 m-2 rounded-full"
-              alt="logo"
-            />
+            <p className="font-medium hidden md:block whitespace-nowrap">
+              {user.name}
+            </p>
+            <Dropdown menu={menuProps}>
+              <img
+                src={user.image}
+                className="w-10 md:w-12 m-2 rounded-full"
+                alt="logo"
+              />
+            </Dropdown>
           </>
         ) : (
           <Button type="primary" onClick={handleSignIn}>
