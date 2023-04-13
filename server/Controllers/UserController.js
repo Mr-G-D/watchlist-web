@@ -1,6 +1,6 @@
 const User = require("../Models/User");
 
-exports.login = async (req, res, next) => {
+exports.login = async (req, res) => {
   try {
     const { name, email } = req.body;
     const [user] = await User.findOrCreate({
@@ -9,6 +9,7 @@ exports.login = async (req, res, next) => {
         name: name,
       },
     });
+    // console.log(req.body);
     res.json({
       status: 200,
       id: user.dataValues.id,

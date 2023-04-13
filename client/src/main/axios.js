@@ -10,3 +10,16 @@ export const axiosGet = async (url) => {
     return error;
   }
 };
+
+export const backendPost = async (url, data) => {
+  try {
+    const res = await axios.post(`http://127.0.0.1:8000/${url}`, {
+      ...data,
+    });
+    if (res.status === 200) {
+      return res;
+    }
+  } catch (error) {
+    return error;
+  }
+};

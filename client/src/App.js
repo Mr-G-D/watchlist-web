@@ -6,6 +6,7 @@ import Single from "./pages/Single";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
 import secureLocalStorage from "react-secure-storage";
+import { backendPost } from "./main/axios";
 
 export const TypeConext = createContext();
 function App() {
@@ -20,14 +21,15 @@ function App() {
     if (secureLocalStorage.getItem("user") !== null) {
       setUser(secureLocalStorage.getItem("user"));
     }
-  }, []);
+  }, [user]);
   const handleType = (type) => {
     localStorage.setItem("type", type);
     setType(type);
   };
   const handleUser = (user) => {
-    secureLocalStorage.setItem("user", user);
     setUser(user);
+    secureLocalStorage.setItem("user", user);
+    backendPost("login", user);
   };
   const store = {
     type: type,
