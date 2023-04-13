@@ -2,12 +2,7 @@ const List = require("../Models/List");
 
 exports.create = async (req, res) => {
   try {
-    const { user_id, movie_id, movie } = req.body;
-    const res = await List.create({
-      user_id: user_id,
-      movie_id: movie_id,
-      movie: movie,
-    });
+    const res = await List.create({ ...req.body });
     res.json({
       status: 200,
       body: res,

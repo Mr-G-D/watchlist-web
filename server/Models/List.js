@@ -18,6 +18,16 @@ const List = db.define("List", {
     type: DataTypes.BOOLEAN,
     allowNull: false,
   },
+  image: {
+    type: DataTypes.STRING,
+  },
+  title: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  release_date: {
+    type: DataTypes.DATE,
+  },
 });
 
 exports = module.exports = List;

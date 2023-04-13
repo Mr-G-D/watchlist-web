@@ -29,6 +29,9 @@ const Banner = ({
       user_id,
       movie_id,
       movie,
+      title,
+      image: poster,
+      release_date: date,
     });
   };
 
