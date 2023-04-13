@@ -4,6 +4,7 @@ const db = require("./database");
 const router = require("./routes");
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const List = require("./Models/List");
 
 // db.query("show tables").then(function (rows) {
 //   console.log(JSON.stringify(rows));
@@ -26,7 +27,7 @@ app.listen(port, () => {
 try {
   db.authenticate().then(() =>
     db
-      .sync()
+      .sync({ alter: true })
       .then(() => console.log("Connection has been established successfully.")),
   );
 } catch (error) {
