@@ -1,9 +1,12 @@
 import axios from "axios";
 
+const TMDB_URL = process.env.REACT_APP_TMDB_URL;
+const BACKEND_URL = process.env.REACT_APP_BACKEND_API;
+
 export const axiosGet = async (url) => {
   try {
     const res = await axios.get(
-      `https://api.themoviedb.org/3/${url}?api_key=${process.env.REACT_APP_API_KEY}`,
+      `${TMDB_URL}/${url}?api_key=${process.env.REACT_APP_API_KEY}`,
     );
     return res;
   } catch (error) {
@@ -13,7 +16,7 @@ export const axiosGet = async (url) => {
 
 export const backendPost = async (url, data) => {
   try {
-    const res = await axios.post(`http://127.0.0.1:8000/${url}`, {
+    const res = await axios.post(`${BACKEND_URL}/${url}`, {
       ...data,
     });
     if (res.status === 200) {
