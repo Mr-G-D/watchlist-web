@@ -39,6 +39,8 @@ const Single = () => {
   return (
     <section>
       <Banner
+        id={id}
+        type={type}
         banner={data.backdrop_path}
         poster={data.poster_path}
         title={data.title ? data.title : data.name}

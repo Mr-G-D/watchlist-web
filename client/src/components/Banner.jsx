@@ -1,10 +1,46 @@
-import React from "react";
-import { AiOutlineStar } from "react-icons/ai";
+import React, { useState } from "react";
+import { AiOutlineStar, AiTwotoneStar } from "react-icons/ai";
 import { TfiClose } from "react-icons/tfi";
 import { useNavigate } from "react-router-dom";
+import secureLocalStorage from "react-secure-storage";
+import { backendGet, backendPost } from "../main/axios";
 
-const Banner = ({ banner, poster, title, bio, genres, description, date }) => {
+const Banner = ({
+  banner,
+  poster,
+  title,
+  bio,
+  genres,
+  description,
+  date,
+  id,
+  type,
+}) => {
+  const [liked, setLiked] = useState(false);
   const navigate = useNavigate();
+
+  const movie_id = id;
+  const movie = type === "movie" ? 1 : 0;
+
+  const like = async () => {
+    setLiked(true);
+    const user_id = await secureLocalStorage.getItem("user_id");
+    await backendPost("watchlist/add", {
+      user_id,
+      movie_id,
+      movie,
+    });
+  };
+
+  const dislike = async () => {
+    setLiked(false);
+    const user_id = await secureLocalStorage.getItem("user_id");
+    await backendGet("watchlist/delete", {
+      user_id,
+      movie_id,
+      movie,
+    });
+  };
   return (
     <div
       style={{
@@ -107,7 +143,19 @@ const Banner = ({ banner, poster, title, bio, genres, description, date }) => {
           </div>
 
           <div className="m-5 sm:m-10 absolute top-0  md:right-20 ">
-            <AiOutlineStar className="cursor-pointer" size={25} />
+            {liked ? (
+              <AiTwotoneStar
+                onClick={dislike}
+                className="cursor-pointer text-yellow-400 border-black"
+                size={25}
+              />
+            ) : (
+              <AiOutlineStar
+                onClick={like}
+                className="cursor-pointer"
+                size={25}
+              />
+            )}
           </div>
           <div className="m-5 sm:m-10 absolute top-1.5 right-0">
             <TfiClose
