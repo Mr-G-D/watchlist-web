@@ -41,3 +41,22 @@ exports.deleteLike = async (req, res) => {
     res.send(error);
   }
 };
+
+exports.getList = async (req, res) => {
+  try {
+    const { id } = req.query;
+    const data = await List.findAll({
+      where: {
+        user_id: id,
+      },
+      attributes: ["title", "image", "release_date"],
+    });
+
+    res.json({
+      status: 200,
+      data: data,
+    });
+  } catch (error) {
+    res.send(error);
+  }
+};
