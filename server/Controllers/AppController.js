@@ -49,7 +49,7 @@ exports.getList = async (req, res) => {
       where: {
         user_id: user_id,
       },
-      attributes: ["title", "image", "release_date"],
+      attributes: ["title", "image", "release_date", "movie_id"],
     });
 
     res.json({

@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AiOutlineStar, AiTwotoneStar } from "react-icons/ai";
 import { TfiClose } from "react-icons/tfi";
 import { useNavigate } from "react-router-dom";
 import secureLocalStorage from "react-secure-storage";
 import { backendGet, backendPost } from "../main/axios";
+import { TypeConext } from "../App";
+import { Button } from "antd";
+import { signInWithGoogle } from "../config/firebase";
 
 const Banner = ({
   banner,
@@ -18,6 +21,8 @@ const Banner = ({
 }) => {
   const [liked, setLiked] = useState(false);
   const navigate = useNavigate();
+
+  const { user, setUser } = useContext(TypeConext);
 
   useEffect(() => {
     checkLike();
@@ -74,6 +79,14 @@ const Banner = ({
       user_id,
       movie_id,
       movie,
+    });
+  };
+  const handleSignIn = async () => {
+    const { user } = await signInWithGoogle();
+    setUser({
+      name: user.displayName,
+      image: user.photoURL,
+      email: user.email,
     });
   };
   return (
@@ -178,18 +191,24 @@ const Banner = ({
           </div>
 
           <div className="m-5 sm:m-10 absolute top-0  md:right-20 ">
-            {liked ? (
-              <AiTwotoneStar
-                onClick={dislike}
-                className="cursor-pointer text-yellow-400 border-black"
-                size={25}
-              />
+            {user ? (
+              liked ? (
+                <AiTwotoneStar
+                  onClick={dislike}
+                  className="cursor-pointer text-yellow-400 border-black"
+                  size={25}
+                />
+              ) : (
+                <AiOutlineStar
+                  onClick={like}
+                  className="cursor-pointer"
+                  size={25}
+                />
+              )
             ) : (
-              <AiOutlineStar
-                onClick={like}
-                className="cursor-pointer"
-                size={25}
-              />
+              <Button type="primary" onClick={handleSignIn}>
+                Sign In
+              </Button>
             )}
           </div>
           <div className="m-5 sm:m-10 absolute top-1.5 right-0">

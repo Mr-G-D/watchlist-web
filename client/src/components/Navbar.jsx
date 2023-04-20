@@ -34,16 +34,16 @@ const Navbar = ({ onSearch, handleSearch }) => {
 
   const items = [
     {
-      label: "Logout",
-      key: 1,
-      icon: <SlLogout />,
-      onClick: logout,
-    },
-    {
       label: "Watchlist",
       key: 2,
       icon: <MdFavorite />,
       onClick: () => navigate("/watchlist"),
+    },
+    {
+      label: "Logout",
+      key: 1,
+      icon: <SlLogout />,
+      onClick: logout,
     },
   ];
 

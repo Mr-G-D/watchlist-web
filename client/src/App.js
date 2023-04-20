@@ -28,11 +28,15 @@ function App() {
     setType(type);
   };
   const handleUser = async (user) => {
-    setUser(user);
-    secureLocalStorage.setItem("user", user);
-    const { id, list } = await backendPost("login", user);
-    secureLocalStorage.setItem("user_id", id);
-    secureLocalStorage.setItem("list", list);
+    const { id, list, status } = await backendPost("login", user);
+    if (status === 200) {
+      secureLocalStorage.setItem("user_id", id);
+      secureLocalStorage.setItem("list", list);
+      setUser(user);
+      secureLocalStorage.setItem("user", user);
+    } else {
+      alert("Login Error");
+    }
   };
   const store = {
     type: type,
