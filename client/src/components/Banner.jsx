@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AiOutlineStar, AiTwotoneStar } from "react-icons/ai";
 import { TfiClose } from "react-icons/tfi";
 import { useNavigate } from "react-router-dom";
@@ -19,12 +19,34 @@ const Banner = ({
   const [liked, setLiked] = useState(false);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    checkLike();
+    // eslint-disable-next-line
+  }, []);
+
+  const checkLike = async () => {
+    const list = secureLocalStorage.getItem("list");
+    const result = await list?.find((ele) => {
+      // eslint-disable-next-line
+      return ele.movie_id == id && ele.movie == movie;
+    });
+    if (result) {
+      setLiked(true);
+    }
+  };
+
   const movie_id = id;
   const movie = type === "movie" ? 1 : 0;
 
   const like = async () => {
     setLiked(true);
     const user_id = await secureLocalStorage.getItem("user_id");
+    let list = await secureLocalStorage.getItem("list");
+    list.push({
+      movie_id: parseInt(id),
+      movie: movie ? true : false,
+    });
+    secureLocalStorage.setItem("list", list);
     await backendPost("watchlist/add", {
       user_id,
       movie_id,
@@ -38,6 +60,16 @@ const Banner = ({
   const dislike = async () => {
     setLiked(false);
     const user_id = await secureLocalStorage.getItem("user_id");
+    const list = secureLocalStorage.getItem("list");
+    const newList = list.filter((ele) => {
+      // eslint-disable-next-line
+      if (ele.movie_id == id) {
+        // eslint-disable-next-line
+        return !ele.movie == movie;
+      }
+      return true;
+    });
+    secureLocalStorage.setItem("list", newList);
     await backendGet("watchlist/delete", {
       user_id,
       movie_id,

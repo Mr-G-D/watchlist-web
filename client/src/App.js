@@ -29,8 +29,9 @@ function App() {
   const handleUser = async (user) => {
     setUser(user);
     secureLocalStorage.setItem("user", user);
-    const { id } = await backendPost("login", user);
+    const { id, list } = await backendPost("login", user);
     secureLocalStorage.setItem("user_id", id);
+    secureLocalStorage.setItem("list", list);
   };
   const store = {
     type: type,
