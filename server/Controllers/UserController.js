@@ -1,3 +1,4 @@
+const List = require("../Models/List");
 const User = require("../Models/User");
 
 exports.login = async (req, res) => {
@@ -9,10 +10,16 @@ exports.login = async (req, res) => {
         name: name,
       },
     });
-    // console.log(req.body);
+    const data = await List.findAndCountAll({
+      where: {
+        user_id: user.dataValues.id,
+      },
+      attributes: ["movie_id", "movie"],
+    });
     res.json({
       status: 200,
       id: user.dataValues.id,
+      list: data.rows,
     });
   } catch (error) {
     console.log(error);
