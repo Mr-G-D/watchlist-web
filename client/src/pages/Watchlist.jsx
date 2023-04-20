@@ -3,6 +3,7 @@ import Sidebar from "../components/Sidebar";
 import { fetchData } from "../main/api";
 import Poster from "../components/Poster";
 import { backendGet } from "../main/axios";
+import secureLocalStorage from "react-secure-storage";
 
 const Watchlist = () => {
   const [movies, setMovies] = useState([]);
@@ -20,8 +21,14 @@ const Watchlist = () => {
       }
     };
     const fetchMovies = async () => {
-      const res = await backendGet("watchlist/get");
-      console.log(res);
+      const user_id = secureLocalStorage.getItem("user_id");
+      console.log(user_id);
+      const res = await backendGet("watchlist/all", { user_id });
+      const newArr = res.data.map(({ image: poster_path, ...rest }) => ({
+        poster_path,
+        ...rest,
+      }));
+      setMovies(newArr);
     };
     fetchGenres();
     fetchMovies();
@@ -60,7 +67,7 @@ const Watchlist = () => {
             }}
           >
             {movies?.map((ele) => (
-              <div key={ele.id}>
+              <div key={ele.title}>
                 <Poster data={ele} type={1} />
               </div>
             ))}

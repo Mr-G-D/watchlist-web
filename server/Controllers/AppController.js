@@ -44,10 +44,10 @@ exports.deleteLike = async (req, res) => {
 
 exports.getList = async (req, res) => {
   try {
-    const { id } = req.query;
+    const { user_id } = req.query;
     const data = await List.findAll({
       where: {
-        user_id: id,
+        user_id: user_id,
       },
       attributes: ["title", "image", "release_date"],
     });
