@@ -16,13 +16,10 @@ const Watchlist = () => {
       const res = await fetchData("genre/movie/list");
       if (res.status === 200) {
         setGenres(res.data.genres);
-      } else {
-        console.log("No Data");
       }
     };
     const fetchMovies = async () => {
       const user_id = secureLocalStorage.getItem("user_id");
-      console.log(user_id);
       const res = await backendGet("watchlist/all", { user_id });
       const newArr = res.data.map(({ image: poster_path, ...rest }) => ({
         poster_path,
