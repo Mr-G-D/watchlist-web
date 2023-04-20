@@ -27,7 +27,7 @@ const Home = () => {
 
   useEffect(() => {
     const handle = (e) => {
-      if (!sidebarRef.current.contains(e.target)) {
+      if (!sidebarRef.current?.contains(e.target)) {
         setSidebar(false);
       }
     };
