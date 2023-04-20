@@ -1,20 +1,17 @@
-import React, { createContext, useEffect, useRef, useState } from "react";
-import { Filter } from "../components/Filter";
-import Main from "../components/Main";
+import React, { useEffect, useRef, useState } from "react";
 import Sidebar from "../components/Sidebar";
 import { fetchData } from "../main/api";
+import Poster from "../components/Poster";
+import { backendGet } from "../main/axios";
 
-export const FilterProvider = createContext();
-
-const Home = () => {
-  const [url, setUrl] = useState("/trending/all/day");
-  const [filter, setFilter] = useState(false);
+const Watchlist = () => {
+  const [movies, setMovies] = useState([]);
   const [genres, setGenres] = useState([]);
   const [sidebar, setSidebar] = useState(false);
   const sidebarRef = useRef();
 
   useEffect(() => {
-    const fetch = async () => {
+    const fetchGenres = async () => {
       const res = await fetchData("genre/movie/list");
       if (res.status === 200) {
         setGenres(res.data.genres);
@@ -22,7 +19,12 @@ const Home = () => {
         console.log("No Data");
       }
     };
-    fetch();
+    const fetchMovies = async () => {
+      const res = await backendGet("watchlist/get");
+      console.log(res);
+    };
+    fetchGenres();
+    fetchMovies();
   }, []);
 
   useEffect(() => {
@@ -33,18 +35,6 @@ const Home = () => {
     };
     document.addEventListener("mousedown", handle);
   });
-
-  const handleData = (movieUrl) => {
-    setUrl(movieUrl);
-    setFilter(true);
-  };
-
-  const filterData = {
-    filter,
-    setFilter,
-    sidebar,
-    setSidebar,
-  };
 
   return (
     <div className="flex flex-row h-screen max-w-full">
@@ -62,12 +52,23 @@ const Home = () => {
         <Sidebar genre={genres} setSidebar={setSidebar} />
       </div>
       <div className="w-full xl:w-[80%] xl:basis-4/5">
-        <FilterProvider.Provider value={filterData}>
-          {filter ? <Filter data={url} /> : <Main handleData={handleData} />}
-        </FilterProvider.Provider>
+        <div>
+          <div
+            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 overflow-auto"
+            style={{
+              textAlignLast: "center",
+            }}
+          >
+            {movies?.map((ele) => (
+              <div key={ele.id}>
+                <Poster data={ele} type={1} />
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
 };
 
-export default Home;
+export default Watchlist;

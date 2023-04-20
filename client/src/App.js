@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
 import secureLocalStorage from "react-secure-storage";
 import { backendPost } from "./main/axios";
+import Watchlist from "./pages/Watchlist";
 
 export const TypeConext = createContext();
 function App() {
@@ -48,6 +49,7 @@ function App() {
               <Route index element={<Home type={type} />} />
               <Route exact path="/movie/:id" element={<Single />} />
               <Route exact path="/actor/:name" element={<Actor />} />
+              <Route exact path="/watchlist" element={<Watchlist />} />
             </Route>
           </Routes>
         </BrowserRouter>
