@@ -1,12 +1,17 @@
 import React, { useContext } from "react";
 import { TypeConext } from "../App";
+import { useNavigate } from "react-router-dom";
 
 const Sidebar = ({ genre, setSidebar }) => {
   const { type, setType } = useContext(TypeConext);
+  const navigate = useNavigate();
   return (
     <div className="my-6 mx-8 font-sans">
       <div className="">
-        <h1 className="uppercase font-thin">
+        <h1
+          className="uppercase font-thin cursor-pointer"
+          onClick={() => navigate("/")}
+        >
           <span className="font-semibold">The</span>Watchlist
         </h1>
       </div>

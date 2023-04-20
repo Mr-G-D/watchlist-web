@@ -6,6 +6,8 @@ import Single from "./pages/Single";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
 import secureLocalStorage from "react-secure-storage";
+import { backendPost } from "./main/axios";
+import Watchlist from "./pages/Watchlist";
 
 export const TypeConext = createContext();
 function App() {
@@ -20,14 +22,21 @@ function App() {
     if (secureLocalStorage.getItem("user") !== null) {
       setUser(secureLocalStorage.getItem("user"));
     }
-  }, []);
+  }, [user]);
   const handleType = (type) => {
     localStorage.setItem("type", type);
     setType(type);
   };
-  const handleUser = (user) => {
-    secureLocalStorage.setItem("user", user);
-    setUser(user);
+  const handleUser = async (user) => {
+    const { id, list, status } = await backendPost("login", user);
+    if (status === 200) {
+      secureLocalStorage.setItem("user_id", id);
+      secureLocalStorage.setItem("list", list);
+      setUser(user);
+      secureLocalStorage.setItem("user", user);
+    } else {
+      alert("Login Error");
+    }
   };
   const store = {
     type: type,
@@ -44,6 +53,7 @@ function App() {
               <Route index element={<Home type={type} />} />
               <Route exact path="/movie/:id" element={<Single />} />
               <Route exact path="/actor/:name" element={<Actor />} />
+              <Route exact path="/watchlist" element={<Watchlist />} />
             </Route>
           </Routes>
         </BrowserRouter>

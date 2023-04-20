@@ -1,10 +1,94 @@
-import React from "react";
-import { AiOutlineStar } from "react-icons/ai";
+import React, { useContext, useEffect, useState } from "react";
+import { AiOutlineStar, AiTwotoneStar } from "react-icons/ai";
 import { TfiClose } from "react-icons/tfi";
 import { useNavigate } from "react-router-dom";
+import secureLocalStorage from "react-secure-storage";
+import { backendGet, backendPost } from "../main/axios";
+import { TypeConext } from "../App";
+import { Button } from "antd";
+import { signInWithGoogle } from "../config/firebase";
 
-const Banner = ({ banner, poster, title, bio, genres, description, date }) => {
+const Banner = ({
+  banner,
+  poster,
+  title,
+  bio,
+  genres,
+  description,
+  date,
+  id,
+  type,
+}) => {
+  const [liked, setLiked] = useState(false);
   const navigate = useNavigate();
+
+  const { user, setUser } = useContext(TypeConext);
+
+  useEffect(() => {
+    checkLike();
+    // eslint-disable-next-line
+  }, []);
+
+  const checkLike = async () => {
+    const list = secureLocalStorage.getItem("list");
+    const result = await list?.find((ele) => {
+      // eslint-disable-next-line
+      return ele.movie_id == id && ele.movie == movie;
+    });
+    if (result) {
+      setLiked(true);
+    }
+  };
+
+  const movie_id = id;
+  const movie = type === "movie" ? 1 : 0;
+
+  const like = async () => {
+    setLiked(true);
+    const user_id = await secureLocalStorage.getItem("user_id");
+    let list = await secureLocalStorage.getItem("list");
+    list.push({
+      movie_id: parseInt(id),
+      movie: movie ? true : false,
+    });
+    secureLocalStorage.setItem("list", list);
+    await backendPost("watchlist/add", {
+      user_id,
+      movie_id,
+      movie,
+      title,
+      image: poster,
+      release_date: date,
+    });
+  };
+
+  const dislike = async () => {
+    setLiked(false);
+    const user_id = await secureLocalStorage.getItem("user_id");
+    const list = secureLocalStorage.getItem("list");
+    const newList = list.filter((ele) => {
+      // eslint-disable-next-line
+      if (ele.movie_id == id) {
+        // eslint-disable-next-line
+        return !ele.movie == movie;
+      }
+      return true;
+    });
+    secureLocalStorage.setItem("list", newList);
+    await backendGet("watchlist/delete", {
+      user_id,
+      movie_id,
+      movie,
+    });
+  };
+  const handleSignIn = async () => {
+    const { user } = await signInWithGoogle();
+    setUser({
+      name: user.displayName,
+      image: user.photoURL,
+      email: user.email,
+    });
+  };
   return (
     <div
       style={{
@@ -107,7 +191,25 @@ const Banner = ({ banner, poster, title, bio, genres, description, date }) => {
           </div>
 
           <div className="m-5 sm:m-10 absolute top-0  md:right-20 ">
-            <AiOutlineStar className="cursor-pointer" size={25} />
+            {user ? (
+              liked ? (
+                <AiTwotoneStar
+                  onClick={dislike}
+                  className="cursor-pointer text-yellow-400 border-black"
+                  size={25}
+                />
+              ) : (
+                <AiOutlineStar
+                  onClick={like}
+                  className="cursor-pointer"
+                  size={25}
+                />
+              )
+            ) : (
+              <Button type="primary" onClick={handleSignIn}>
+                Sign In
+              </Button>
+            )}
           </div>
           <div className="m-5 sm:m-10 absolute top-1.5 right-0">
             <TfiClose

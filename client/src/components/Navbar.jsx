@@ -8,12 +8,15 @@ import { FilterProvider } from "../pages/Home";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { SlLogout } from "react-icons/sl";
 import secureLocalStorage from "react-secure-storage";
+import { MdFavorite } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = ({ onSearch, handleSearch }) => {
   const { filter, setFilter } = useContext(FilterProvider);
   const { user, setUser } = useContext(TypeConext);
   const { setSidebar } = useContext(FilterProvider);
   const { Search } = Input;
+  const navigate = useNavigate();
 
   const handleSignIn = async () => {
     const { user } = await signInWithGoogle();
@@ -28,7 +31,14 @@ const Navbar = ({ onSearch, handleSearch }) => {
     await secureLocalStorage.clear();
     window.location.reload();
   };
+
   const items = [
+    {
+      label: "Watchlist",
+      key: 2,
+      icon: <MdFavorite />,
+      onClick: () => navigate("/watchlist"),
+    },
     {
       label: "Logout",
       key: 1,
