@@ -19,7 +19,6 @@ app.use(cors());
 //   next();
 // };
 
-// app.use(allowCrossDomain);
 app.use(express.json());
 // app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(bodyParser.json());
