@@ -11,11 +11,7 @@ const List = require("./Models/List");
 // });
 
 const app = express();
-app.use(
-  cors({
-    origin: "*",
-  }),
-);
+app.use(cors());
 // const allowCrossDomain = (req, res, next) => {
 //   res.header(`Access-Control-Allow-Origin`, `*`);
 //   res.header(`Access-Control-Allow-Methods`, `GET,PUT,POST,DELETE`);
@@ -25,8 +21,8 @@ app.use(
 
 // app.use(allowCrossDomain);
 app.use(express.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(bodyParser.json());
 
 const port = process.env.PORT;
 
