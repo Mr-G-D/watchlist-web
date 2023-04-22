@@ -27,7 +27,7 @@ app.listen(port, () => {
 try {
   db.authenticate().then(() =>
     db
-      .sync({ force: true })
+      .sync()
       .then(() => console.log("Connection has been established successfully.")),
   );
 } catch (error) {
