@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import Sidebar from "../components/Sidebar";
 import { fetchData } from "../main/api";
 import Poster from "../components/Poster";
@@ -7,13 +7,17 @@ import secureLocalStorage from "react-secure-storage";
 import { TfiClose } from "react-icons/tfi";
 import { useNavigate } from "react-router-dom";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { TypeConext } from "../App";
+import { Alert } from "antd";
 
 const Watchlist = () => {
   const [movies, setMovies] = useState([]);
+  const [allMovies, setAllMovies] = useState([]);
   const [genres, setGenres] = useState([]);
   const [sidebar, setSidebar] = useState(false);
   const sidebarRef = useRef();
   const navigate = useNavigate();
+  const type = useContext(TypeConext).type === "movie" ? true : false;
 
   useEffect(() => {
     const fetchGenres = async () => {
@@ -32,7 +36,9 @@ const Watchlist = () => {
           ...rest,
         }),
       );
-      setMovies(newArr);
+      // const temp = newArr.filter((ele) => ele.movie === type);
+      // console.log(temp);
+      setAllMovies(newArr);
     };
     fetchGenres();
     fetchMovies();
@@ -44,13 +50,13 @@ const Watchlist = () => {
         setSidebar(false);
       }
     };
-    const checkType = async () => {
-      const type = localStorage.getItem("type") === "movie" ? 1 : 0;
-      if (type == movies[0].movie) console.log(type);
-    };
     document.addEventListener("mousedown", handle);
-    checkType();
   });
+
+  useEffect(() => {
+    const temp = allMovies.filter((ele) => ele.movie === type);
+    setMovies(temp);
+  }, [type, allMovies]);
 
   return (
     <div className="flex flex-row h-screen max-w-full">
@@ -85,18 +91,24 @@ const Watchlist = () => {
           </div>
         </div>
         <div>
-          <div
-            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 overflow-auto"
-            style={{
-              textAlignLast: "center",
-            }}
-          >
-            {movies?.map((ele) => (
-              <div key={ele.title}>
-                <Poster data={ele} type={1} />
-              </div>
-            ))}
-          </div>
+          {movies.length === 0 ? (
+            <div className="m-10">
+              <Alert message="Nothing Yet" type="warning" showIcon />
+            </div>
+          ) : (
+            <div
+              className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 overflow-auto"
+              style={{
+                textAlignLast: "center",
+              }}
+            >
+              {movies?.map((ele) => (
+                <div key={ele.title}>
+                  <Poster data={ele} type={1} />
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>
